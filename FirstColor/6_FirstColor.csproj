@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+      <RootNamespace>_6_FirstColor</RootNamespace>
+      <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Silk.NET.WebGPU" Version="2.19.0" />
-    <PackageReference Include="Silk.NET.WebGPU.Native.WGPU" Version="2.19.0" />
-    <PackageReference Include="Silk.NET.Windowing" Version="2.21.0" />
+    <ProjectReference Include="..\Comman\Comman.csproj" />
   </ItemGroup>
 
 </Project>
