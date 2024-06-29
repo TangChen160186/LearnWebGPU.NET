@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4_Device", "4_Device\4_Devi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5_CommandQueue", "5_CommandQueue\5_CommandQueue.csproj", "{65C0634B-2447-47F2-A425-660777F7C0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6_FirstColor", "FirstColor\6_FirstColor.csproj", "{7941E6BA-B8A9-4286-BA39-A299981B6427}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6_FirstColor", "6_FirstColor\6_FirstColor.csproj", "{7941E6BA-B8A9-4286-BA39-A299981B6427}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
