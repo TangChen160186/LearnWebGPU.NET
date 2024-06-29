@@ -20,7 +20,6 @@ namespace _4_Device
                 API = GraphicsAPI.None,
                 WindowBorder = WindowBorder.Fixed
             });
-
             _window.Load += WindowLoad;
             _window.Render += WindowRender;
             _window.Update += WindowOnUpdate;
