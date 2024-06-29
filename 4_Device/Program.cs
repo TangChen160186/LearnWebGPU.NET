@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using Silk.NET.Core.Native;
 using Silk.NET.WebGPU;
 using Silk.NET.Windowing;
 
-namespace _3_Adapter
+namespace _4_Device
 {
     internal unsafe class Program
     {
@@ -12,6 +13,7 @@ namespace _3_Adapter
         private static WebGPU _wgpu;
         private static Instance* _instance;
         private static Adapter* _adapter;
+        private static Device* _device;
         static void Main(string[] args)
         {
             _window = Window.Create(WindowOptions.Default with{
@@ -30,8 +32,8 @@ namespace _3_Adapter
         }
         private static void WindowLoad()
         {
-            _wgpu = WebGPU.GetApi();
-
+            _wgpu = WebGPU.GetApi(); 
+          
             // create instance
             _instance = _wgpu.CreateInstance(new InstanceDescriptor());
             if (_instance is null)
@@ -45,12 +47,32 @@ namespace _3_Adapter
                 else
                     throw new Exception(Marshal.PtrToStringUTF8((IntPtr)message));
             });
-            _wgpu.InstanceRequestAdapter(_instance, new RequestAdapterOptions(){BackendType = BackendType.OpenGL}, pfnRequestAdapterCallback, default);
+            _wgpu.InstanceRequestAdapter(_instance, new RequestAdapterOptions(), pfnRequestAdapterCallback, default);
             InspectAdapter();
             
+            // request device
+            var deviceDescriptor = new DeviceDescriptor
+            {
+                Label = (byte*)SilkMarshal.StringToPtr("MyDevice"),
+                RequiredFeatureCount = 0,
+                RequiredFeatures = null,
+                RequiredLimits = null,
+                DeviceLostCallback = PfnDeviceLostCallback.From(OnDeviceLostCallBack)
+            };
+            var pfnRequestDeviceCallback = PfnRequestDeviceCallback.From((status, device, message, _) =>
+            {
+                if (status == RequestDeviceStatus.Success)
+                    _device = device;
+                else
+                    throw new Exception(Marshal.PtrToStringUTF8((IntPtr)message));
+            });
+            _wgpu.AdapterRequestDevice(_adapter, deviceDescriptor, pfnRequestDeviceCallback,null);
+            var pfnErrorCallback = PfnErrorCallback.From((errorType, message, _) =>
+                Console.WriteLine($"Error type:{errorType},{Marshal.PtrToStringUTF8((IntPtr)message)}"));
+            _wgpu.DeviceSetUncapturedErrorCallback(_device, pfnErrorCallback, null);
+            InspectDevice();
 
 
-     
         }
 
         private static void WindowOnUpdate(double obj)
@@ -62,7 +84,7 @@ namespace _3_Adapter
 
         private static void WindowRender(double obj)
         {
-       
+            
         }
 
         private static void WindowClosing()
@@ -111,6 +133,35 @@ namespace _3_Adapter
                 }
                
             }
+        }
+
+        private static void InspectDevice()
+        {
+            // get device limits
+            Console.WriteLine("Device limits:");
+            SupportedLimits supportedLimits = new SupportedLimits();
+            if (_wgpu.DeviceGetLimits(_device, ref supportedLimits))
+            {
+                foreach (var fieldInfo in supportedLimits.Limits.GetType().GetFields())
+                {
+                    Console.WriteLine($"\t{fieldInfo.Name}: {fieldInfo.GetValue(supportedLimits.Limits)}");
+                }
+            }
+
+            // get device features
+            Console.WriteLine("Device features:");
+            int featureCount = (int)_wgpu.DeviceEnumerateFeatures(_device, null);
+            FeatureName* featureNames = stackalloc FeatureName[featureCount];
+            _wgpu.AdapterEnumerateFeatures(_adapter, featureNames);
+            for (int i = 0; i < featureCount; i++)
+            {
+                Console.WriteLine($"\t{featureNames[i]}");
+            }
+        }
+
+        private static void OnDeviceLostCallBack(DeviceLostReason reason, byte* message, void* _)
+        {
+            throw new Exception($"lost reason:{reason},{Marshal.PtrToStringUTF8((IntPtr)message)}");
         }
     }
 }

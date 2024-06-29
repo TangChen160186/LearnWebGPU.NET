@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{11628A3B-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2_Instance", "2-Instance\2_Instance.csproj", "{808C9C28-3305-4503-9C1F-F806C4DDA50D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_Adapter", "3_AdapterAndDevice\3_Adapter.csproj", "{5F18E011-7908-48F8-A552-9AD2291F5099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3_Adapter", "3_AdapterAndDevice\3_Adapter.csproj", "{5F18E011-7908-48F8-A552-9AD2291F5099}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4_Device", "4_Device\4_Device.csproj", "{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{5F18E011-7908-48F8-A552-9AD2291F5099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F18E011-7908-48F8-A552-9AD2291F5099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F18E011-7908-48F8-A552-9AD2291F5099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
