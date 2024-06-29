@@ -4,7 +4,7 @@ using Silk.NET.Core.Native;
 using Silk.NET.WebGPU;
 using Silk.NET.Windowing;
 
-namespace _4_Device
+namespace _5_CommandQueue
 {
     internal unsafe class Program
     {
@@ -14,6 +14,7 @@ namespace _4_Device
         private static Instance* _instance;
         private static Adapter* _adapter;
         private static Device* _device;
+        private static Queue* _queue;
         static void Main(string[] args)
         {
             _window = Window.Create(WindowOptions.Default with{
@@ -71,16 +72,34 @@ namespace _4_Device
                 Console.WriteLine($"Error type:{errorType},{Marshal.PtrToStringUTF8((IntPtr)message)}"));
             _wgpu.DeviceSetUncapturedErrorCallback(_device, pfnErrorCallback, null);
             InspectDevice();
-            
 
+
+            // create  queue
+            _queue = _wgpu.DeviceGetQueue(_device);
+            var commandEncoderDescriptor = new CommandEncoderDescriptor()
+            {
+                Label = (byte*)SilkMarshal.StringToPtr("My command encoder"),
+            };
+            // create commands and submit commands
+            CommandEncoder* encoder = _wgpu.DeviceCreateCommandEncoder(_device, commandEncoderDescriptor);
+            CommandBuffer* command = _wgpu.CommandEncoderFinish(encoder, new CommandBufferDescriptor()); 
+            _wgpu.CommandEncoderRelease(encoder);
+            _wgpu.QueueSubmit(_queue,1,ref command);
+            var pfnQueueWorkDoneCallback = PfnQueueWorkDoneCallback.From((status, _) =>
+            {
+                if (status == QueueWorkDoneStatus.Success)
+                {
+                    Console.WriteLine("Queue Done");
+                }
+            });
+            _wgpu.QueueOnSubmittedWorkDone(_queue, pfnQueueWorkDoneCallback,null);
+            
         }
 
         private static void WindowOnUpdate(double obj)
         {
            
         }
-
-
 
         private static void WindowRender(double obj)
         {
@@ -89,6 +108,7 @@ namespace _4_Device
 
         private static void WindowClosing()
         {
+            _wgpu.QueueRelease(_queue);
             _wgpu.DeviceRelease(_device);
             _wgpu.AdapterRelease(_adapter);
             _wgpu.InstanceRelease(_instance);

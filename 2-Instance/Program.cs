@@ -51,6 +51,9 @@ namespace _2_Instance
         private static void WindowClosing()
         {
             _wgpu.InstanceRelease(_instance);
+
+            // you can only call Dispose to release all unmanaged resources
+            //_wgpu.Dispose();
         }
     }
 }

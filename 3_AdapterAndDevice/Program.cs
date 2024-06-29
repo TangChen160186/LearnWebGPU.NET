@@ -67,7 +67,11 @@ namespace _3_Adapter
 
         private static void WindowClosing()
         {
+            _wgpu.AdapterRelease(_adapter);
             _wgpu.InstanceRelease(_instance);
+
+            // you can only call Dispose to release all unmanaged resources
+            //_wgpu.Dispose();
         }
 
         private static void InspectAdapter()
