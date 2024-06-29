@@ -17,13 +17,13 @@ namespace _2_Instance
                 WindowBorder = WindowBorder.Fixed
             });
 
-            _window.Initialize();
-            _window.Center();
             _window.Load += WindowLoad;
             _window.Render += WindowRender;
             _window.Update += WindowOnUpdate;
             _window.Closing += WindowClosing;
 
+            _window.Initialize();
+            _window.Center();
             _window.Run();
         }
         private static void WindowLoad()
