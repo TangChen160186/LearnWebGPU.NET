@@ -23,6 +23,7 @@ namespace _1_HelloTriangle
         {
             _window = Window.Create(WindowOptions.Default with{
                 API = GraphicsAPI.None,
+                VSync = true
   
             });
             _window.Load += WindowLoad;
@@ -88,8 +89,8 @@ namespace _1_HelloTriangle
             // config surface
             ConfigureSurface();
 
-            //InitializePipeline
             InitializePipeline();
+            //InitializePipeline
         }
 
         private static void WindowRender(double obj)
@@ -139,6 +140,7 @@ namespace _1_HelloTriangle
 
         private static void WindowClosing()
         {
+            _wgpu.RenderPipelineRelease(_renderPipeline);
             _wgpu.QueueRelease(_queue);
             _wgpu.DeviceRelease(_device);
             _wgpu.SurfaceRelease(_surface);
