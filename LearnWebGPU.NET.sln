@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2_Instance", "2-Instance\2_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3_Adapter", "3_AdapterAndDevice\3_Adapter.csproj", "{5F18E011-7908-48F8-A552-9AD2291F5099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4_Device", "4_Device\4_Device.csproj", "{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4_Device", "4_Device\4_Device.csproj", "{4ECD647A-5B20-4AFC-8BD7-4215487C2C74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5_CommandQueue", "5_CommandQueue\5_CommandQueue.csproj", "{65C0634B-2447-47F2-A425-660777F7C0B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5_CommandQueue", "5_CommandQueue\5_CommandQueue.csproj", "{65C0634B-2447-47F2-A425-660777F7C0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6_FirstColor", "6_FirstColor\6_FirstColor.csproj", "{7941E6BA-B8A9-4286-BA39-A299981B6427}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6_FirstColor", "6_FirstColor\6_FirstColor.csproj", "{7941E6BA-B8A9-4286-BA39-A299981B6427}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7_3DRendering", "7_3DRendering", "{9D332FEE-378C-4562-A742-253C86550360}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_HelloTriangle", "1_HelloTriangle\1_HelloTriangle.csproj", "{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,12 +57,17 @@ Global
 		{7941E6BA-B8A9-4286-BA39-A299981B6427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7941E6BA-B8A9-4286-BA39-A299981B6427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7941E6BA-B8A9-4286-BA39-A299981B6427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61D9994E-1236-4A0D-9761-A5E5FFFACA19} = {11628A3B-EA07-4423-9DBF-E5C3DE0C515F}
+		{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F} = {9D332FEE-378C-4562-A742-253C86550360}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B39DB26-ECC2-4229-9E86-2AE934FBE3F8}
