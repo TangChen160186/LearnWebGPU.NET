@@ -231,7 +231,7 @@ namespace _1_HelloTriangle
                 Console.WriteLine($"\t{_surfaceCapabilities.Formats[i]}");
             }
 
-            Console.WriteLine("SurfaceCapabilities Support Format:");
+            Console.WriteLine("SurfaceCapabilities Support PresentMode:");
             for (int i = 0; i < (int)_surfaceCapabilities.PresentModeCount; i++)
             {
                 Console.WriteLine($"\t{_surfaceCapabilities.PresentModes[i]}");

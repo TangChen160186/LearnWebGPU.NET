@@ -3,8 +3,9 @@ using System.Runtime.InteropServices;
 using Silk.NET.Core.Native;
 using Silk.NET.WebGPU;
 using Silk.NET.Windowing;
+using Buffer = Silk.NET.WebGPU.Buffer;
 
-namespace _6_FirstColor
+namespace _2_InputGeometry
 {
     internal unsafe class Program
     {
@@ -16,12 +17,14 @@ namespace _6_FirstColor
         private static Device* _device;
         private static Queue* _queue;
         private static Surface* _surface;
+        private static RenderPipeline* _renderPipeline;
 
         private static SurfaceCapabilities _surfaceCapabilities;
         static void Main(string[] args)
         {
             _window = Window.Create(WindowOptions.Default with{
                 API = GraphicsAPI.None,
+                VSync = true
   
             });
             _window.Load += WindowLoad;
@@ -86,8 +89,14 @@ namespace _6_FirstColor
 
             // config surface
             ConfigureSurface();
+
+            //InitializePipeline
+            InitializePipeline();
+
+            // PlayingWithBuffers
+            PlayingWithBuffers();
         }
-        
+
         private static void WindowRender(double obj)
         {
             TextureView* targetView = GetNextSurfaceTextureView();
@@ -100,7 +109,7 @@ namespace _6_FirstColor
                 LoadOp = LoadOp.Clear,
                 StoreOp = StoreOp.Store,
                 View = targetView,
-                ClearValue = new Color(0.9f, 0.1f, 0.5f, 1.0f)
+                ClearValue = new Color(0.9f, 0.1f, 0.5f, 1.0f),
             };
 
             var renderPassDescriptor = new RenderPassDescriptor()
@@ -112,38 +121,35 @@ namespace _6_FirstColor
             };
 
             RenderPassEncoder* renderPass = _wgpu.CommandEncoderBeginRenderPass(encoder, renderPassDescriptor);
-
+            _wgpu.RenderPassEncoderSetPipeline(renderPass,_renderPipeline);
+            _wgpu.RenderPassEncoderDraw(renderPass,3,1,0,0);
             // End and release render pass
             _wgpu.RenderPassEncoderEnd(renderPass);
-            _wgpu.RenderPassEncoderRelease(renderPass);
 
             // Create command buffer
             CommandBuffer* commandBuffer = _wgpu.CommandEncoderFinish(encoder, new CommandBufferDescriptor());
-            _wgpu.CommandEncoderRelease(encoder);
 
             // Submit command buffer
             _wgpu.QueueSubmit(_queue, 1, &commandBuffer);
             _wgpu.CommandBufferRelease(commandBuffer);
 
             // Present surface
-            _wgpu.QueueOnSubmittedWorkDone(_queue,PfnQueueWorkDoneCallback.From((status, _) =>
-            {
-
-            }),null);
-            // Release texture view
-            _wgpu.TextureViewRelease(targetView);
             _wgpu.SurfacePresent(_surface);
-            
+
+            // release unmanaged resource
+            _wgpu.TextureViewRelease(targetView);
+            _wgpu.RenderPassEncoderRelease(renderPass);
+            _wgpu.CommandEncoderRelease(encoder);
         }
 
         private static void WindowClosing()
         {
+            _wgpu.RenderPipelineRelease(_renderPipeline);
             _wgpu.QueueRelease(_queue);
             _wgpu.DeviceRelease(_device);
             _wgpu.SurfaceRelease(_surface);
             _wgpu.AdapterRelease(_adapter);
             _wgpu.InstanceRelease(_instance);
-
             // you can only call Dispose to release all unmanaged resources
             //_wgpu.Dispose();
         }
@@ -235,6 +241,7 @@ namespace _6_FirstColor
                 Console.WriteLine($"\t{_surfaceCapabilities.PresentModes[i]}");
             }
         }
+
         private static void OnDeviceLostCallBack(DeviceLostReason reason, byte* message, void* _)
         {
             throw new Exception($"lost reason:{reason},{Marshal.PtrToStringUTF8((IntPtr)message)}");
@@ -292,6 +299,147 @@ namespace _6_FirstColor
                 NextInChain = null,
             };
             _wgpu.SurfaceConfigure(_surface, in surfaceConfiguration);
+        }
+
+        private static void InitializePipeline()
+        {
+            var codeString = File.ReadAllText("Geometry.wgsl");
+            ShaderModuleWGSLDescriptor shaderModuleWgslDescriptor = new ShaderModuleWGSLDescriptor()
+            {
+                Chain = new ChainedStruct()
+                {
+                    Next = null,
+                    SType = SType.ShaderModuleWgslDescriptor,
+                },
+                Code = (byte*)SilkMarshal.StringToPtr(codeString)
+            };
+            ShaderModuleDescriptor shaderModuleDescriptor = new ShaderModuleDescriptor()
+            {
+                NextInChain = (ChainedStruct*)(&shaderModuleWgslDescriptor)
+            };
+            ShaderModule* shaderModule = _wgpu.DeviceCreateShaderModule(_device, shaderModuleDescriptor);
+            VertexState vertexState = new VertexState()
+            {
+                BufferCount = 0,
+                Buffers = null,
+                ConstantCount = 0,
+                Constants = null,
+                EntryPoint = (byte*)SilkMarshal.StringToPtr("vs_main"),
+                Module = shaderModule,
+                NextInChain = null,
+            };
+
+     
+
+            PrimitiveState primitiveState = new PrimitiveState()
+            {
+                CullMode = CullMode.None,
+                FrontFace = FrontFace.Ccw,
+                StripIndexFormat = IndexFormat.Undefined,
+                Topology = PrimitiveTopology.TriangleList,
+                NextInChain = null,
+            };
+            BlendState blendState = new BlendState()
+            {
+                Alpha = new BlendComponent(BlendOperation.Add,BlendFactor.Zero,BlendFactor.One),
+                Color = new BlendComponent(BlendOperation.Add, BlendFactor.SrcAlpha, BlendFactor.OneMinusSrcAlpha),
+            };
+            ColorTargetState colorTargetState = new ColorTargetState()
+            {
+                Blend = &blendState,
+                Format = _wgpu.SurfaceGetPreferredFormat(_surface, _adapter),
+                WriteMask = ColorWriteMask.All,
+                NextInChain = null,
+            };
+            FragmentState fragmentState = new FragmentState()
+            {
+                ConstantCount = 0,
+                Constants = null,
+                EntryPoint = (byte*)SilkMarshal.StringToPtr("fs_main"),
+                Module = shaderModule,
+                TargetCount = 1,
+                Targets = &colorTargetState,
+                NextInChain = null,
+            };
+
+            MultisampleState multisampleState = new MultisampleState()
+            {
+                Count = 1,
+                Mask = ~0u,
+                AlphaToCoverageEnabled = false,
+                NextInChain = null,
+            };
+            RenderPipelineDescriptor renderPipelineDescriptor = new RenderPipelineDescriptor()
+            {
+                Vertex = vertexState,
+                Primitive = primitiveState,
+                Fragment = &fragmentState,
+                DepthStencil = null,
+                Layout = null,
+                Multisample = multisampleState,
+                NextInChain = null,
+                Label = null,
+            };
+            _renderPipeline = _wgpu.DeviceCreateRenderPipeline(_device, renderPipelineDescriptor);
+
+            // release unmanaged resource
+            _wgpu.ShaderModuleRelease(shaderModule); 
+            SilkMarshal.FreeString((IntPtr)vertexState.EntryPoint);
+            SilkMarshal.FreeString((IntPtr)fragmentState.EntryPoint);
+            SilkMarshal.FreeString((IntPtr)shaderModuleWgslDescriptor.Code);
+        }
+
+        private static void PlayingWithBuffers()
+        {
+            BufferDescriptor bufferDescriptor = new BufferDescriptor()
+            {
+                MappedAtCreation = false,
+                Size = 16,
+                Usage = BufferUsage.CopyDst | BufferUsage.CopySrc
+            };
+            Buffer* buffer1 = _wgpu.DeviceCreateBuffer(_device, bufferDescriptor);
+
+            bufferDescriptor.Usage = BufferUsage.CopyDst | BufferUsage.MapRead;
+            Buffer* buffer2 = _wgpu.DeviceCreateBuffer(_device, bufferDescriptor);
+
+            byte* data = stackalloc byte[16];
+            for (int i = 0; i < 16; i++) data[i] = (byte)i;
+            _wgpu.QueueWriteBuffer(_queue,buffer1,0, data,16);
+
+            CommandEncoder* encoder = _wgpu.DeviceCreateCommandEncoder(_device, new CommandEncoderDescriptor());
+
+            _wgpu.CommandEncoderCopyBufferToBuffer(encoder,buffer1,0,buffer2,0,16);
+
+            CommandBuffer* command = _wgpu.CommandEncoderFinish(encoder, new CommandBufferDescriptor());
+            _wgpu.QueueSubmit(_queue,1,ref command);
+
+
+            var pfnBufferMapCallback = PfnBufferMapCallback.From((status, _) =>
+            {
+                if (status == BufferMapAsyncStatus.Success)
+                {
+                    byte* mapData = (byte*)_wgpu.BufferGetConstMappedRange(buffer2, 0, 16);
+                    for (int i = 0; i < 16; i++)
+                    {
+                        mapData[i] = (byte)(i*2);
+                    }
+                    byte* mapData1 = (byte*)_wgpu.BufferGetConstMappedRange(buffer2, 0, 16);
+                    for (int i = 0; i < 16; i++)
+                    {
+                        Console.WriteLine(mapData1[i]);
+                    }
+                    _wgpu.BufferUnmap(buffer2);
+                    _wgpu.BufferRelease(buffer1);
+                    _wgpu.BufferRelease(buffer2);
+                }
+            });
+            _wgpu.BufferMapAsync(buffer2,MapMode.Read,0,16, pfnBufferMapCallback,null );
+
+
+            _wgpu.CommandEncoderRelease(encoder);
+            _wgpu.CommandBufferRelease(command);
+
+
         }
     }
 }
