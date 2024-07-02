@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2_InputGeometry_PlayingWith
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_InputGeometry_VertexAttribute", "3_InputGeometry_VertexAttribute\3_InputGeometry_VertexAttribute.csproj", "{F3D527E2-F70D-4E68-89E5-991EBB07312A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4_InputGeometry_IndexBuffer", "4_InputGeometry_IndexBuffer\4_InputGeometry_IndexBuffer.csproj", "{7BC87497-7427-45AE-B969-4A756B5D8C03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{F3D527E2-F70D-4E68-89E5-991EBB07312A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3D527E2-F70D-4E68-89E5-991EBB07312A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3D527E2-F70D-4E68-89E5-991EBB07312A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BC87497-7427-45AE-B969-4A756B5D8C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BC87497-7427-45AE-B969-4A756B5D8C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BC87497-7427-45AE-B969-4A756B5D8C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BC87497-7427-45AE-B969-4A756B5D8C03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{FB9C4F8C-2735-4741-AC9B-7CFAF96EFA4F} = {9D332FEE-378C-4562-A742-253C86550360}
 		{ECA479F3-C454-407B-8415-31A92616676A} = {9D332FEE-378C-4562-A742-253C86550360}
 		{F3D527E2-F70D-4E68-89E5-991EBB07312A} = {9D332FEE-378C-4562-A742-253C86550360}
+		{7BC87497-7427-45AE-B969-4A756B5D8C03} = {9D332FEE-378C-4562-A742-253C86550360}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B39DB26-ECC2-4229-9E86-2AE934FBE3F8}
