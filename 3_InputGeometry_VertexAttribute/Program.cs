@@ -24,15 +24,17 @@ namespace _3_InputGeometry_VertexAttribute
 
         private static readonly float[] _vertexData =
         [
-            // Define a first triangle:
-            -0.5f, -0.5f,
-            +0.5f, -0.5f,
-            +0.0f, +0.5f,
-
-            // Add a second triangle:
-            -0.55f, -0.5f,
-            -0.05f, +0.5f,
-            -0.55f, +0.5f
+            // x0,  y0,  r0,  g0,  b0
+            -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+        
+            // x1,  y1,  r1,  g1,  b1
+            +0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+        
+            // ...
+            +0.0f,   +0.5f, 0.0f, 0.0f, 1.0f,
+            -0.55f, -0.5f, 1.0f, 1.0f, 0.0f,
+            -0.05f, +0.5f, 1.0f, 0.0f, 1.0f,
+            -0.55f, +0.5f, 0.0f, 1.0f, 1.0f
         ];
         static void Main(string[] args)
         {
@@ -338,17 +340,25 @@ namespace _3_InputGeometry_VertexAttribute
             };
             ShaderModule* shaderModule = _wgpu.DeviceCreateShaderModule(_device, shaderModuleDescriptor);
 
-            VertexAttribute vertexAttribute0 = new VertexAttribute()
+            VertexAttribute positionAttribute = new VertexAttribute()
             {
                 Format = VertexFormat.Float32x2,
                 Offset = 0,
                 ShaderLocation = 0
             };
+            VertexAttribute colorAttribute = new VertexAttribute()
+            {
+                Format = VertexFormat.Float32x3,
+                Offset = sizeof(float) * 2,
+                ShaderLocation = 1
+            };
+
+            VertexAttribute* attributes = stackalloc VertexAttribute[] { positionAttribute, colorAttribute };
             VertexBufferLayout vertexBufferLayout = new VertexBufferLayout()
             {
-                AttributeCount = 1,
-                Attributes = &vertexAttribute0,
-                ArrayStride = sizeof(float) * 2,
+                AttributeCount = 2,
+                Attributes = attributes,
+                ArrayStride = sizeof(float) * 5,
                 StepMode = VertexStepMode.Vertex,
 
             };
