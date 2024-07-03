@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_InputGeometry_VertexAttri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4_InputGeometry_IndexBuffer", "4_InputGeometry_IndexBuffer\4_InputGeometry_IndexBuffer.csproj", "{AA2DD117-F78E-4B65-8A03-67B2B54C6923}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8_ShaderUniforms", "8_ShaderUniforms", "{9EAE7CE9-FD2D-4AC6-BC01-DDC33AABC95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_FirstUniform", "1_FirstUniform\1_FirstUniform.csproj", "{15FBE04D-9073-49B0-A61B-2B3BF0371E70}"
+EndProject
 
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +88,10 @@ Global
 		{AA2DD117-F78E-4B65-8A03-67B2B54C6923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA2DD117-F78E-4B65-8A03-67B2B54C6923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA2DD117-F78E-4B65-8A03-67B2B54C6923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15FBE04D-9073-49B0-A61B-2B3BF0371E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15FBE04D-9073-49B0-A61B-2B3BF0371E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15FBE04D-9073-49B0-A61B-2B3BF0371E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15FBE04D-9073-49B0-A61B-2B3BF0371E70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +103,7 @@ Global
 		{F3D527E2-F70D-4E68-89E5-991EBB07312A} = {9D332FEE-378C-4562-A742-253C86550360}
 		{7BC87497-7427-45AE-B969-4A756B5D8C03} = {9D332FEE-378C-4562-A742-253C86550360}
 		{AA2DD117-F78E-4B65-8A03-67B2B54C6923} = {9D332FEE-378C-4562-A742-253C86550360}
+		{15FBE04D-9073-49B0-A61B-2B3BF0371E70} = {9EAE7CE9-FD2D-4AC6-BC01-DDC33AABC95F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B39DB26-ECC2-4229-9E86-2AE934FBE3F8}
