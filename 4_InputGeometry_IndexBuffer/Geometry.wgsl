@@ -21,4 +21,3 @@ fn vs_main(in: VertexInput) -> VertexOutput {
 fn fs_main(in: VertexOutput) -> @location(0) vec4f {
 	return vec4f(in.color, 1.0);
 }
-
