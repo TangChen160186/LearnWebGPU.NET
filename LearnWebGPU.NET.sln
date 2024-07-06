@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9_3DMesh", "9_3DMesh", "{4C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_Transformation", "1_Transformation\1_Transformation.csproj", "{930D3D65-9DE4-4BED-A742-39F961E53A0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2_DepthBuffer", "2_DepthBuffer\2_DepthBuffer.csproj", "{5D21E358-9B9E-4A08-B678-365D81187ABB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{930D3D65-9DE4-4BED-A742-39F961E53A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{930D3D65-9DE4-4BED-A742-39F961E53A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{930D3D65-9DE4-4BED-A742-39F961E53A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D21E358-9B9E-4A08-B678-365D81187ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D21E358-9B9E-4A08-B678-365D81187ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D21E358-9B9E-4A08-B678-365D81187ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D21E358-9B9E-4A08-B678-365D81187ABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{60D1436E-F181-429B-B2B5-6A61EF3FAA86} = {9EAE7CE9-FD2D-4AC6-BC01-DDC33AABC95F}
 		{C1F12569-627C-4C63-B5E2-B576D1E24463} = {9EAE7CE9-FD2D-4AC6-BC01-DDC33AABC95F}
 		{930D3D65-9DE4-4BED-A742-39F961E53A0A} = {4C7C3F49-BE81-43E6-87F7-565636592172}
+		{5D21E358-9B9E-4A08-B678-365D81187ABB} = {4C7C3F49-BE81-43E6-87F7-565636592172}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B39DB26-ECC2-4229-9E86-2AE934FBE3F8}
