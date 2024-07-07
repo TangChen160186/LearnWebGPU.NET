@@ -45,6 +45,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2_DepthBuffer", "2_DepthBuf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_BasicShading", "3_BasicShading\3_BasicShading.csproj", "{875BDCF7-67D6-4939-AA3D-E76BF1C8ED7A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_Texture", "10_Texture", "{B9A993A4-9ED0-4893-95C1-B2C10AEA4DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_FirstTexture", "1_FirstTexture\1_FirstTexture.csproj", "{95CCEA24-5194-4573-A2BC-2071644EB503}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +123,10 @@ Global
 		{875BDCF7-67D6-4939-AA3D-E76BF1C8ED7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{875BDCF7-67D6-4939-AA3D-E76BF1C8ED7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{875BDCF7-67D6-4939-AA3D-E76BF1C8ED7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95CCEA24-5194-4573-A2BC-2071644EB503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95CCEA24-5194-4573-A2BC-2071644EB503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95CCEA24-5194-4573-A2BC-2071644EB503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95CCEA24-5194-4573-A2BC-2071644EB503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +143,7 @@ Global
 		{930D3D65-9DE4-4BED-A742-39F961E53A0A} = {4C7C3F49-BE81-43E6-87F7-565636592172}
 		{5D21E358-9B9E-4A08-B678-365D81187ABB} = {4C7C3F49-BE81-43E6-87F7-565636592172}
 		{875BDCF7-67D6-4939-AA3D-E76BF1C8ED7A} = {4C7C3F49-BE81-43E6-87F7-565636592172}
+		{95CCEA24-5194-4573-A2BC-2071644EB503} = {B9A993A4-9ED0-4893-95C1-B2C10AEA4DEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B39DB26-ECC2-4229-9E86-2AE934FBE3F8}
